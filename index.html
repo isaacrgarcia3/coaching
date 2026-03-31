@@ -101,6 +101,10 @@
     min-height: calc(100vh - 64px);
   }
 
+  @media (max-width: 900px) {
+    .app-hero { min-height: unset; }
+  }
+
   .app-hero-left {
     padding: 80px 60px 80px 60px;
     display: flex;
@@ -566,16 +570,34 @@
 
   /* responsive */
   @media (max-width: 900px) {
-    .app-hero { grid-template-columns: 1fr; }
-    .app-hero-right { display: none; }
+    .app-hero {
+      grid-template-columns: 1fr;
+      min-height: unset;
+    }
+    .app-hero-left {
+      padding: 48px 24px 40px;
+      min-height: unset;
+    }
+    .app-hero-right {
+      display: block;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-right: none;
+      padding: 40px 24px 60px;
+      min-height: unset;
+    }
+    .app-hero-right .manifesto-bg { display: none; }
     .form-grid { grid-template-columns: 1fr; }
     .form-group.full { grid-column: 1; }
-    .call-meta { gap: 32px; }
+    .call-meta { gap: 32px; flex-wrap: wrap; justify-content: center; }
     .call-card-grid { grid-template-columns: 1fr; }
     .footer-manifesto { grid-template-columns: 1fr; }
-    nav { padding: 0 20px; }
+    nav { padding: 0 16px; }
+    .nav-logo { font-size: 1.1rem; }
     .app-hero-left, .form-section, .call-hero, .booking-section { padding-left: 24px; padding-right: 24px; }
-    .nav-tab { padding: 8px 12px; font-size: 0.65rem; }
+    .nav-tab { padding: 8px 10px; font-size: 0.62rem; }
+    .bio-heading { font-size: 1.5rem; }
+    .bio-body { font-size: 0.85rem; }
+    .bio-photo { width: 80px; height: 80px; }
   }
   /* ── FEATURES SECTION ── */
   .features-section {
