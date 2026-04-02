@@ -483,6 +483,50 @@ textarea{ resize:vertical; min-height:120px; }
 .confirm-title{ font-family:'Bebas Neue',sans-serif; font-size:clamp(2rem,3.5vw,3rem); letter-spacing:0.05em; color:var(--white); margin-bottom:16px; }
 .confirm-msg{ font-size:0.95rem; line-height:1.85; color:var(--muted); max-width:520px; }
 
+/* ── STICKY MOBILE CTA ── */
+.sticky-cta { display: none; }
+
+@media (max-width: 900px) {
+  .sticky-cta {
+    display: block;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 200;
+    background: rgba(10,10,10,0.97);
+    border-top: 1px solid rgba(200,184,154,0.2);
+    backdrop-filter: blur(16px);
+    padding: 14px 20px;
+    transform: translateY(100%);
+    transition: transform 0.35s ease;
+  }
+  .sticky-cta.visible { transform: translateY(0); }
+  .sticky-cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .sticky-cta-text { display: flex; flex-direction: column; gap: 2px; }
+  .sticky-cta-label { font-size: 0.85rem; font-weight: 500; color: var(--white); }
+  .sticky-cta-sub { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+  .sticky-cta-btn {
+    padding: 12px 24px;
+    background: var(--accent);
+    color: var(--black);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .sticky-cta-btn:hover { background: var(--accent-bright); }
+}
+
 .share-toast{
   display:none; position:fixed; bottom:32px; left:50%;
   transform:translateX(-50%); background:var(--accent);
@@ -845,7 +889,8 @@ textarea{ resize:vertical; min-height:120px; }
         </div>
       </div>
       <h2 class="bio-heading">Built for You.<br>Backed by Experience.</h2>
-      <p class="bio-body">As a Certified Strength &amp; Conditioning Specialist, Precision Nutrition Coach and current Strength &amp; Conditioning Coach at LIFT Chicago, I bring both academic and hands-on experience at the highest levels. I studied at Springfield College, a premier program known for producing coaches in professional sports (NFL, NBA, MLB, NHL) and across all NCAA divisions. My background includes coaching at Amherst College and internships with the University of Michigan and the University of Tulsa. I have coached hundreds of collegiate athletes, along with a wide range of general population clients.</p>
+      <p class="bio-body">Certified Strength &amp; Conditioning Specialist and Precision Nutrition Coach at LIFT Chicago, with over 10 years of coaching experience. I bring both academic and hands-on experience at the highest levels. I studied at Springfield College, a premier program known for producing coaches in professional sports (NFL, NBA, MLB, NHL) and across all NCAA divisions. My background includes coaching collegiate athletes at top programs like Springfield College, Amherst College, and the University of Michigan.</p>
+      <p class="bio-body" style="margin-top:16px;">I've coached hundreds of athletes at the collegiate level. But what I truly love is working with everyday people who are ready to make a change. The ones who are tired of starting over, tired of guessing, and ready to finally build confidence in their body again.<br><br><strong style="color:var(--white);font-weight:500;">That's who I built this for.</strong></p>
       <div class="cred-row">
         <span class="cred-badge">CSCS – NSCA</span>
         <span class="cred-badge">Precision Nutrition</span>
@@ -1120,7 +1165,30 @@ textarea{ resize:vertical; min-height:120px; }
 
 <div class="share-toast" id="shareToast">Link copied to clipboard</div>
 
+<!-- STICKY MOBILE CTA -->
+<div class="sticky-cta" id="stickyCta">
+  <div class="sticky-cta-inner">
+    <div class="sticky-cta-text">
+      <span class="sticky-cta-label">Ready to start?</span>
+      <span class="sticky-cta-sub">Limited spots available</span>
+    </div>
+    <a class="sticky-cta-btn" href="#" onclick="showPage('book',document.querySelectorAll('.nav-tab')[2]);window.scrollTo({top:0});return false;">Apply Now →</a>
+  </div>
+</div>
+
 <script>
+  // Sticky mobile CTA — show after scrolling 300px
+  (function() {
+    var bar = document.getElementById('stickyCta');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 300) {
+        bar.classList.add('visible');
+      } else {
+        bar.classList.remove('visible');
+      }
+    }, { passive: true });
+  })();
+
   function showPage(page, el) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
