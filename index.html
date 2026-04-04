@@ -561,46 +561,6 @@ textarea{ resize:vertical; min-height:120px; }
   .footer-manifesto{ grid-template-columns:1fr; padding:60px 24px; gap:32px; }
 
   .call-hero{ padding:60px 24px 40px; }
-    /* On mobile: hide the full cards, collapse hero tight */
-    @media (max-width: 900px) {
-      .call-hero { padding: 28px 20px 16px; }
-      .call-title { font-size: 2.4rem; margin-bottom: 16px; }
-      .call-subtitle { margin-bottom: 8px; }
-      .call-meta { gap: 20px; margin-bottom: 20px; }
-      .call-card-grid { display: none; }
-      .booking-divider { display: none; }
-      .form-steps {
-        padding: 14px 16px;
-        margin-bottom: 24px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 0;
-        flex-wrap: nowrap;
-        overflow: hidden;
-      }
-      .form-steps-label { display: none; }
-      .form-step {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        flex: 1;
-        margin-bottom: 0;
-        position: relative;
-      }
-      .form-step:not(:last-child)::after {
-        content: '';
-        display: block;
-        width: 16px;
-        height: 1px;
-        background: rgba(200,184,154,0.2);
-        flex-shrink: 0;
-        margin: 0 4px;
-      }
-      .step-num { width: 20px; height: 20px; font-size: 0.6rem; flex-shrink: 0; }
-      .step-text { font-size: 0.68rem; line-height: 1.3; color: var(--muted); }
-      .booking-section { padding: 0 20px 100px; }
-    }
   .call-meta{ gap:32px; }
   .call-card-grid{ grid-template-columns:1fr; }
   .booking-section{ padding:0 24px 80px; }
