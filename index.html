@@ -539,6 +539,39 @@ textarea{ resize:vertical; min-height:120px; }
 }
 
 /* ── RESPONSIVE ── */
+.how-it-works-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:2px;
+  background:var(--border);
+  max-width:900px;
+}
+.how-step{
+  background:var(--panel);
+  padding:36px 28px;
+  position:relative;
+}
+.how-step-label{
+  font-size:0.6rem; letter-spacing:0.3em;
+  text-transform:uppercase; color:var(--accent);
+  margin-bottom:10px;
+}
+.how-step-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.8rem; color:var(--accent);
+  opacity:0.2; position:absolute;
+  top:20px; right:24px; letter-spacing:0.04em;
+}
+.how-step-title{
+  font-family:'DM Sans',sans-serif;
+  font-size:1rem; font-weight:600;
+  color:var(--white); margin-bottom:10px;
+}
+.how-step-desc{
+  font-size:0.83rem; line-height:1.75;
+  color:var(--muted);
+}
+
 @media (max-width:900px){
   nav{ padding:0 16px; }
   .nav-logo{ font-size:1.1rem; }
@@ -555,6 +588,12 @@ textarea{ resize:vertical; min-height:120px; }
   .included-section{ padding:60px 24px; }
   .included-grid{ grid-template-columns:1fr; }
   .included-item{ padding:32px 24px; }
+
+  .how-it-works-grid{ grid-template-columns:1fr; max-width:100%; }
+  .how-step{ padding:28px 20px; }
+  .how-step-num{ font-size:2rem; top:16px; right:16px; }
+  .footer-cta-grid{ grid-template-columns:1fr !important; text-align:left !important; }
+  .footer-cta-grid > div:last-child{ text-align:left !important; }
 
   .price-anchor{ padding:60px 24px; flex-direction:column; align-items:flex-start; }
 
@@ -925,6 +964,7 @@ textarea{ resize:vertical; min-height:120px; }
       <h2 class="bio-heading">Built for You.<br>Backed by Experience.</h2>
       <p class="bio-body">Certified Strength &amp; Conditioning Specialist, Precision Nutrition Coach and Manager at LIFT Chicago, with over 10 years of coaching experience. I bring both academic and hands-on experience at the highest levels. I studied at Springfield College, a premier program known for producing coaches in professional sports (NFL, NBA, MLB, NHL) and across all NCAA divisions. My background includes coaching collegiate athletes at top programs like Springfield College, Amherst College, and the University of Michigan.</p>
       <p class="bio-body" style="margin-top:16px;">I've coached hundreds of athletes at the collegiate level. But <strong style="color:var(--accent);font-weight:600;">what I truly love is working with everyday people who are ready to make a change.</strong> The ones who are tired of starting over, tired of guessing, and ready to finally build confidence in their body again.</p>
+      <p class="bio-body" style="margin-top:16px; color:rgba(245,243,239,0.5); font-size:0.8rem; letter-spacing:0.04em;">I work with a small number of clients at a time to keep the quality of coaching high. <strong style="color:var(--accent); font-weight:500;">Spots are limited.</strong></p>
     </div>
   </section>
 
@@ -968,11 +1008,49 @@ textarea{ resize:vertical; min-height:120px; }
     </div>
   </section>
 
+  <!-- HOW IT WORKS -->
+  <section style="padding:70px 60px; background:var(--black); border-top:1px solid var(--border);">
+    <div style="max-width:1100px;">
+      <p class="section-eyebrow">The Process</p>
+      <h2 class="section-heading" style="margin-bottom:40px;">How It Works</h2>
+      <div class="how-it-works-grid">
+        <div class="how-step">
+          <div class="how-step-label">Apply</div>
+          <div class="how-step-num">01</div>
+          <h3 class="how-step-title">Submit Your Application</h3>
+          <p class="how-step-desc">Fill out the short form. Tell me your goals and where you're at. Takes less than 2 minutes.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-step-label">Connect</div>
+          <div class="how-step-num">02</div>
+          <h3 class="how-step-title">Free 20-Min Call</h3>
+          <p class="how-step-desc">I'll personally reach out within 48 hours to schedule your call. No sales pitch — just a real conversation about your goals.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-step-label">Start</div>
+          <div class="how-step-num">03</div>
+          <h3 class="how-step-title">Begin Training</h3>
+          <p class="how-step-desc">Your custom program goes live in the CoachRx app. We're locked in and building from day one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- STATS BAR -->
   <section class="stats-bar">
     <div class="stat-item">
       <span class="stat-num">100+</span>
       <span class="stat-label">Clients Coached</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-num">10–15%</span>
+      <span class="stat-label">Body Fat Lost<br>in 12 Weeks</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-num">5–10 lbs</span>
+      <span class="stat-label">Muscle Gained<br>in 12 Weeks</span>
     </div>
     <div class="stat-divider"></div>
     <div class="stat-item">
@@ -991,17 +1069,19 @@ textarea{ resize:vertical; min-height:120px; }
     </div>
   </section>
 
-  <footer class="footer-manifesto">
-    <div class="footer-brand">ISAAC<br>GARCIA<br>TRAINING</div>
-    <div class="footer-text">
-      <strong>"The gap between who you are and who you want to be is what you do every day."</strong>
-      <br><br>
-      © 2026 Isaac Garcia Training
+  <footer style="background:var(--panel); border-top:1px solid var(--border); padding:70px 60px; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; max-width:100%;">
+    <div>
+      <p style="font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--accent); margin-bottom:14px;">Ready to Start?</p>
+      <h2 style="font-family:'Bebas Neue',sans-serif; font-size:clamp(2rem,4vw,3rem); letter-spacing:0.04em; color:var(--white); line-height:1.05; margin-bottom:16px;">Stop Guessing.<br>Start Building.</h2>
+      <p style="font-size:0.85rem; line-height:1.8; color:var(--muted); max-width:380px; margin-bottom:28px;">I work with a small number of clients at a time to keep the quality of coaching high. If you're ready to commit, spots are limited — apply now.</p>
+      <a class="btn-primary" href="#" onclick="showPage('book',document.querySelectorAll('.nav-tab')[1]);return false;">Apply for Coaching + Schedule a Call →</a>
+    </div>
+    <div style="text-align:right;">
+      <div class="footer-brand" style="text-align:right; font-family:'Bebas Neue',sans-serif; font-size:2rem; letter-spacing:0.08em; color:rgba(245,243,239,0.08); line-height:1.1;">ISAAC<br>GARCIA<br>TRAINING</div>
+      <p style="font-size:0.75rem; color:rgba(245,243,239,0.25); margin-top:24px; letter-spacing:0.05em;">© 2026 Isaac Garcia Training</p>
     </div>
   </footer>
 </div>
-
-<!-- ════════════ BOOK A CALL PAGE ════════════ -->
 
 <!-- ════════════ COACHRX APP PAGE ════════════ -->
 <div class="page" id="page-app">
@@ -1085,6 +1165,7 @@ textarea{ resize:vertical; min-height:120px; }
 
   <section class="call-hero">
     <h1 class="call-title">Free<br>Consult Call</h1>
+    <p style="font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:28px;">No sales pressure — just a real conversation about your goals</p>
     <div class="call-meta">
       <div class="meta-item">
         <span class="meta-key">Duration</span>
@@ -1099,42 +1180,24 @@ textarea{ resize:vertical; min-height:120px; }
         <span class="meta-val">Your Goals</span>
       </div>
     </div>
-
-    <div class="call-card-grid">
-      <div class="call-card">
-        <div class="card-icon">01</div>
-        <div class="card-title">Clarity</div>
-        <p class="card-desc">I'll identify exactly what's holding you back and build a clear path forward.</p>
-      </div>
-      <div class="call-card">
-        <div class="card-icon">02</div>
-        <div class="card-title">Strategy</div>
-        <p class="card-desc">Your goals. Your timeline. A real game plan — not generic advice you've heard before.</p>
-      </div>
-      <div class="call-card">
-        <div class="card-icon">03</div>
-        <div class="card-title">Decision</div>
-        <p class="card-desc">Walk away knowing your next move. I'll give you the truth — no pressure, no sales pitch.</p>
-      </div>
-    </div>
   </section>
 
   <section class="booking-section">
     <div class="booking-divider"><span>Submit Your Info First</span></div>
 
     <div class="form-steps">
-      <p class="form-steps-label">What happens next</p>
+      <p class="form-steps-label">What happens after you apply</p>
       <div class="form-step">
         <span class="step-num">1</span>
-        <span class="step-text">Submit your info below</span>
+        <span class="step-text">Submit your info below — takes less than 2 minutes</span>
       </div>
       <div class="form-step">
         <span class="step-num">2</span>
-        <span class="step-text">I review your application personally</span>
+        <span class="step-text">I personally review every application — no auto-replies</span>
       </div>
       <div class="form-step">
         <span class="step-num">3</span>
-        <span class="step-text">We hop on a free 20-min call to map out your plan</span>
+        <span class="step-text">I'll reach out within 48 hours to confirm your free call</span>
       </div>
     </div>
 
@@ -1163,7 +1226,7 @@ textarea{ resize:vertical; min-height:120px; }
       </div>
       <div class="form-submit">
         <button class="btn-primary" onclick="submitBooking()">Apply for Coaching + Schedule a Call →</button>
-        <p class="form-note">Free 20-min call, no obligation.<br>I review every submission personally.</p>
+        <p class="form-note">Free 20-min call. No sales pressure.<br>I review every application personally and follow up within 48 hours.</p>
       </div>
       <div id="bookingError" style="display:none;color:#c87a6a;font-size:0.75rem;letter-spacing:0.1em;margin-top:16px;">
         Please fill in your name and email before submitting.
