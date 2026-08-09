@@ -975,6 +975,15 @@ textarea{ resize:vertical; min-height:120px; }
   }
   .quiz-head{ margin-bottom:26px; }
 }
+
+/* ── APPLICATION CTA FOOTER (mobile) ── */
+@media(max-width:820px){
+  .app-cta-footer{ grid-template-columns:1fr !important; padding:48px 22px !important; gap:26px !important; text-align:center; }
+  .app-cta-footer > div{ text-align:center !important; }
+  .app-cta-footer .footer-brand{ text-align:center !important; }
+  .app-cta-footer p[style*="max-width:380px"]{ max-width:100% !important; margin-left:auto; margin-right:auto; }
+  .app-cta-footer .btn-primary{ display:block; width:100%; text-align:center; box-sizing:border-box; }
+}
 </style>
 </head>
 <body>
@@ -1218,7 +1227,7 @@ textarea{ resize:vertical; min-height:120px; }
     </div>
   </section>
 
-  <footer style="background:var(--panel); border-top:1px solid var(--border); padding:70px 60px; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; max-width:100%;">
+  <footer class="app-cta-footer" style="background:var(--panel); border-top:1px solid var(--border); padding:70px 60px; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; max-width:100%;">
     <div>
       <p style="font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--accent); margin-bottom:14px;">Ready to Start?</p>
       <h2 style="font-family:'Bebas Neue',sans-serif; font-size:clamp(2rem,4vw,3rem); letter-spacing:0.04em; color:var(--white); line-height:1.05; margin-bottom:16px;">Stop Guessing.<br>Start Building.</h2>
