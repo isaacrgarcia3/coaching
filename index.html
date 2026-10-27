@@ -1057,8 +1057,8 @@ textarea{ resize:vertical; min-height:120px; }
         </div>
 
         <div class="quiz-nav">
-          <button type="button" class="quiz-back" id="quizBack" style="display:none;" onclick="quizPrev()">← Back</button>
-          <button type="button" class="quiz-next" id="quizNext" onclick="quizNext()" disabled>Next →</button>
+          <button type="button" class="quiz-back" id="quizBack" style="display:none;" onclick="window.quizPrev()">← Back</button>
+          <button type="button" class="quiz-next" id="quizNext" onclick="window.quizNext()" disabled>Next →</button>
         </div>
       </form>
 
@@ -1081,6 +1081,12 @@ textarea{ resize:vertical; min-height:120px; }
           <p class="testi-quote">I had a fantastic experience training with Isaac. Working remotely between California and Chicago, I was consistently impressed by his dedication, communication, and expertise. He delivered tailored weekly workout routines, monitored my daily progress, and seamlessly adjusted exercises based on my feedback. Isaac provided encouragement that kept me accountable to my health and nutrition goals. I highly recommend his training services to anyone looking for expert guidance and results.</p>
           <p class="testi-name">Keith Marsh</p>
           <p class="testi-loc">1:1 Online Client</p>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testi-quote">Worked with him remotely for 3 months. He&rsquo;s out in Chicago, I&rsquo;m in Austin, but that never mattered. He programmed workouts around my small home gym setup every week, kept my nutrition goals in check, and always kept my goals front and center. Everything was easily adaptable to what I needed for a healthy lifestyle. The app was super user-friendly too, with video demos for exercises you might not know, and he was actually in the videos himself, so you could see proper form and speed.<br><br>But honestly, what I needed most was someone to hold me accountable, and that&rsquo;s exactly what he did. Solid programming, great communication, real results. If you&rsquo;re looking for a trainer who&rsquo;ll actually keep you consistent, Isaac&rsquo;s the guy.</p>
+          <p class="testi-name">Michael</p>
+          <p class="testi-loc">1:1 Online Client &middot; Austin, TX</p>
         </div>
       </div>
     </div>
@@ -1376,7 +1382,7 @@ textarea{ resize:vertical; min-height:120px; }
     const errEl     = document.getElementById('bookingError');
     const btn       = document.querySelector('#bookingForm .btn-primary');
 
-    if (!firstName || !lastName || !email) {
+    if (!firstName || !email) {
       errEl.textContent = 'Please fill in your name and email before submitting.';
       errEl.style.display = 'block';
       return;
@@ -1391,12 +1397,13 @@ textarea{ resize:vertical; min-height:120px; }
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
-          name: firstName + ' ' + lastName,
+          name: (firstName + ' ' + lastName).trim(),
           email: email,
           phone: phone || 'Not provided',
           message: topic || 'Not provided',
           _replyto: email,
-          _subject: 'New Coaching Application — ' + firstName + ' ' + lastName,
+          _subject: 'New Coaching Application — ' + (firstName + ' ' + lastName).trim(),
+          ...(window.quizAnswers || {}),
         })
       });
       if (res.ok) {
@@ -1442,7 +1449,7 @@ textarea{ resize:vertical; min-height:120px; }
     function refreshNav(){
       backBtn.style.display = cur === 0 ? 'none' : '';
       var last = cur === steps.length-1;
-      nextBtn.textContent = last ? 'Contact me →' : 'Next →';
+      nextBtn.textContent = last ? 'Continue →' : 'Next →';
       var key = currentKey();
       if(key === 'vision' || key === 'contact'){ nextBtn.disabled = false; }
       else { nextBtn.disabled = !answers[key]; }
@@ -1474,7 +1481,7 @@ textarea{ resize:vertical; min-height:120px; }
       submitQuiz();
     };
 
-    async function submitQuiz(){
+    function submitQuiz(){
       var name = (document.getElementById('qName').value||'').trim();
       var email = (document.getElementById('qEmail').value||'').trim();
       var phone = (document.getElementById('qPhone').value||'').trim();
@@ -1485,30 +1492,41 @@ textarea{ resize:vertical; min-height:120px; }
         errEl.style.display = 'block'; return;
       }
       errEl.style.display = 'none';
-      nextBtn.textContent = 'Sending…'; nextBtn.disabled = true;
-      try{
-        var res = await fetch('https://formspree.io/f/mreoqdgn', {
-          method:'POST',
-          headers:{ 'Content-Type':'application/json', 'Accept':'application/json' },
-          body: JSON.stringify({
-            name: name, email: email, phone: phone || 'Not provided',
-            _replyto: email, _subject: 'New Coaching Application — ' + name,
-            Goal: answers.goal || '—',
-            Identifies_as: answers.gender || '—',
-            Age_group: answers.age || '—',
-            Their_why: answers.vision || '—',
-            Occupation: occ || '—',
-            Instagram: ig || '—'
-          })
-        });
-        if(!res.ok) throw new Error();
-        document.getElementById('quizForm').style.display = 'none';
-        document.getElementById('quizConfirm').style.display = 'block';
-      }catch(e){
-        nextBtn.textContent = 'Contact me →'; nextBtn.disabled = false;
-        errEl.textContent = 'Something went wrong. Please try again or email isaacrgarcia3@gmail.com.';
-        errEl.style.display = 'block';
+
+      // Save quiz answers so the booking submission includes them
+      window.quizAnswers = {
+        Goal: answers.goal || '-',
+        Identifies_as: answers.gender || '-',
+        Age_group: answers.age || '-',
+        Their_why: answers.vision || '-',
+        Occupation: occ || '-',
+        Instagram: ig || '-'
+      };
+
+      // Prefill the Book a Call form
+      var parts = name.split(/\s+/);
+      var first = parts.shift() || '';
+      var last = parts.join(' ');
+      function setVal(id, v){ var el = document.getElementById(id); if(el && v && !el.value) el.value = v; }
+      setVal('bFirstName', first);
+      setVal('bLastName', last);
+      setVal('bEmail', email);
+      setVal('bPhone', phone);
+      var topic = document.getElementById('bTopic');
+      if(topic && !topic.value){
+        var lines = [];
+        if(answers.goal) lines.push('Main goal: ' + answers.goal);
+        if(answers.age) lines.push('Age group: ' + answers.age);
+        if(answers.vision) lines.push('Why it matters: ' + answers.vision);
+        topic.value = lines.join('\n');
       }
+
+      // Send them to the Book a Call section
+      showPage('book', document.querySelectorAll('.nav-tab')[1]);
+      setTimeout(function(){
+        var target = (last ? document.getElementById('bTopic') : document.getElementById('bLastName'));
+        if(target) target.focus({ preventScroll:true });
+      }, 400);
     }
 
     updateProgress(); refreshNav();
